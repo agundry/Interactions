@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.austin.proximitysensing.EmbeddedSensorActivity"
-    tools:showIn="@layout/activity_embedded_sensor">
+    tools:context=".BeaconActivity"
+    tools:showIn="@layout/activity_beacon">
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,20 +23,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/instructionText"
         android:layout_marginTop="111dp"
-        android:text="Place your hand over the phone to be greeted by Adele\nMoving your hand away will reveal the Earth"
+        android:text="Welcome to Interactions!"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/proximityTextView"
-        android:layout_below="@+id/instructionText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:text="Nothing Here"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/proximityTextView"-->
+        <!--android:layout_below="@+id/instructionText"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="95dp"-->
+        <!--android:text="Nothing Here"-->
+        <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
 
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.austin.proximitysensing;
+package com.example.austin.interactions;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
