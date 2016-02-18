@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.widget.EditText;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -28,6 +30,9 @@ import java.util.UUID;
  */
 public class MyApplication extends Application {
     private BeaconManager beaconManager;
+//    IMEI imei = new IMEI();
+//    public String DEVICE_ID = imei.get_dev_id(this);
+
 
     @Override
     public void onCreate() {
@@ -41,7 +46,7 @@ public class MyApplication extends Application {
                 showNotification(
                         "You entered the range of the sick person,",
                         "What are you doing, get out of there.");
-                //updateStatusDB("enter");
+                updateStatusDB("enter", region.getProximityUUID().toString());
             }
             @Override
             public void onExitedRegion(Region region) {
@@ -49,7 +54,7 @@ public class MyApplication extends Application {
                 showNotification(
                         "You have exited the range of the sick person",
                         "Nice job bro");
-                //updateStatusDB("exit");
+                updateStatusDB("exit", region.getProximityUUID().toString());
             }
         });
 
@@ -92,11 +97,15 @@ public class MyApplication extends Application {
         }
     }
 
-    public void updateStatusDB(String status) {
+    public void updateStatusDB(String status, String prox_uuid) {
         JSONObject jsonObject = new JSONObject();
+        IMEI imei = new IMEI();
         try {
             jsonObject.put("status", status);
-            executeAsyncTask(new BeaconClient(), "http://24.12.195.46:8000", jsonObject.toString());
+            jsonObject.put("device_id", imei.get_dev_id(this));
+            jsonObject.put("prox_uuid", prox_uuid);
+
+            executeAsyncTask(new BeaconClient(), "http://10.105.203.209:8000/beacon?reading="+jsonObject.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -113,7 +122,7 @@ public class MyApplication extends Application {
         @Override
         protected String doInBackground(String... params) {
             URL url;
-            String u = "http://10.105.135.121:8000/sensor?value="+params[1].toString();
+            String u = params[0];
             HttpURLConnection urlConnection = null;
             JSONArray response = new JSONArray();
 
@@ -138,6 +147,33 @@ public class MyApplication extends Application {
             }
 
             return null;
+        }
+    }
+
+    public static class IMEI {
+
+        public static String get_dev_id(Context ctx){
+
+            //Getting the Object of TelephonyManager
+            TelephonyManager tManager = (TelephonyManager)ctx.getSystemService(Context.TELEPHONY_SERVICE);
+
+            //Getting IMEI Number of Devide
+            String Imei=tManager.getDeviceId();
+
+            return Imei;
+        }
+    }
+
+    public void addUser(String email) {
+        JSONObject jsonObject = new JSONObject();
+        IMEI imei = new IMEI();
+        try {
+            jsonObject.put("email", email);
+            jsonObject.put("device_id", "357746061445646");
+            executeAsyncTask(new BeaconClient(), "http://10.105.203.209:8000/addUser?newUser=" + jsonObject.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

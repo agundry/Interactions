@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.SystemRequirementsChecker;
+import com.example.austin.interactions.MyApplication;
 
 
 public class BeaconActivity extends AppCompatActivity{
@@ -17,8 +21,9 @@ public class BeaconActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         beaconManager = new BeaconManager(getApplicationContext());
-        beaconManager.setBackgroundScanPeriod(5000, 5000);
+//        beaconManager.setBackgroundScanPeriod(5000, 5000);
         setContentView(R.layout.activity_beacon);
+
     }
 
     @Override
@@ -48,6 +53,14 @@ public class BeaconActivity extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void sendEmail(View view) {
+        EditText editText = (EditText) findViewById(R.id.editText);
+        String email = editText.getText().toString();
+        MyApplication myApplication = new MyApplication();
+        myApplication.addUser(email);
     }
 
 }

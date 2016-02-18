@@ -12,11 +12,6 @@
     tools:context=".BeaconActivity"
     tools:showIn="@layout/activity_beacon">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,19 +19,27 @@
         android:id="@+id/instructionText"
         android:layout_marginTop="111dp"
         android:text="Welcome to Interactions!"
-        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/proximityTextView"-->
-        <!--android:layout_below="@+id/instructionText"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="95dp"-->
-        <!--android:text="Nothing Here"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_email"
+        android:id="@+id/send_email"
+        android:onClick="sendEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint="@string/edit_email"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/send_email"
+        android:layout_alignRight="@+id/instructionText"
+        android:layout_alignEnd="@+id/instructionText" />
 
 
 </RelativeLayout>
