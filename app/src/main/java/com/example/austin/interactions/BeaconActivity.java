@@ -21,7 +21,7 @@ public class BeaconActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         beaconManager = new BeaconManager(getApplicationContext());
-//        beaconManager.setBackgroundScanPeriod(5000, 5000);
+        beaconManager.setBackgroundScanPeriod(10000, 5000);
         setContentView(R.layout.activity_beacon);
 
     }

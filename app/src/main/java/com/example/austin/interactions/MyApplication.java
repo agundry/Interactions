@@ -105,7 +105,7 @@ public class MyApplication extends Application {
             jsonObject.put("device_id", imei.get_dev_id(this));
             jsonObject.put("prox_uuid", prox_uuid);
 
-            executeAsyncTask(new BeaconClient(), "http://10.105.203.209:8000/beacon?reading="+jsonObject.toString());
+            executeAsyncTask(new BeaconClient(), "http://abgundry.pythonanywhere.com/beacon?reading="+jsonObject.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -170,7 +170,7 @@ public class MyApplication extends Application {
         try {
             jsonObject.put("email", email);
             jsonObject.put("device_id", "357746061445646");
-            executeAsyncTask(new BeaconClient(), "http://10.105.203.209:8000/addUser?newUser=" + jsonObject.toString());
+            executeAsyncTask(new BeaconClient(), "http://abgundry.pythonanywhere.com/addUser?newUser=" + jsonObject.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
