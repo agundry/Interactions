@@ -42,7 +42,7 @@ public class MyApplication extends Application {
                 showNotification(
                         "You entered the range of the sick person,",
                         "What are you doing, get out of there.");
-                updateStatusDB("enter", region.getProximityUUID().toString());
+                updateStatusDB("enter", region.getProximityUUID().toString(), region.getMajor().toString(), region.getMinor().toString());
             }
             @Override
             public void onExitedRegion(Region region) {
@@ -50,7 +50,7 @@ public class MyApplication extends Application {
                 showNotification(
                         "You have exited the range of the sick person",
                         "Nice job bro");
-                updateStatusDB("exit", region.getProximityUUID().toString());
+                updateStatusDB("exit", region.getProximityUUID().toString(), region.getMajor().toString(), region.getMinor().toString());
             }
         });
 
@@ -61,6 +61,10 @@ public class MyApplication extends Application {
                         "monitored region",
                         UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
                         38813, 15738));
+                beaconManager.startMonitoring(new Region(
+                        "monitored region",
+                        UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
+                        62225, 40962));
             }
         });
     }
@@ -93,13 +97,15 @@ public class MyApplication extends Application {
         }
     }
 
-    public void updateStatusDB(String status, String prox_uuid) {
+    public void updateStatusDB(String status, String prox_uuid, String major, String minor) {
         JSONObject jsonObject = new JSONObject();
         IMEI imei = new IMEI();
         try {
             jsonObject.put("status", status);
             jsonObject.put("device_id", imei.get_dev_id(this));
             jsonObject.put("prox_uuid", prox_uuid);
+            jsonObject.put("major", major);
+            jsonObject.put("minor", minor);
 
             executeAsyncTask(new BeaconClient(), "http://abgundry.pythonanywhere.com/beacon?reading="+jsonObject.toString());
 
