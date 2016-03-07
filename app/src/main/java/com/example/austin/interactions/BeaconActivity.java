@@ -1,16 +1,16 @@
 package com.example.austin.interactions;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.SystemRequirementsChecker;
-import com.example.austin.interactions.MyApplication;
 
 
 public class BeaconActivity extends AppCompatActivity{
@@ -55,12 +55,27 @@ public class BeaconActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    public static class IMEI {
+
+        public static String get_dev_id(Context ctx){
+
+            //Getting the Object of TelephonyManager
+            TelephonyManager tManager = (TelephonyManager)ctx.getSystemService(Context.TELEPHONY_SERVICE);
+
+            //Getting IMEI Number of Devide
+            String Imei=tManager.getDeviceId();
+
+            return Imei;
+        }
+    }
 
     public void sendEmail(View view) {
         EditText editText = (EditText) findViewById(R.id.editText);
         String email = editText.getText().toString();
         MyApplication myApplication = new MyApplication();
-        myApplication.addUser(email);
+        IMEI thisIMEI = new IMEI();
+        String thisId = thisIMEI.get_dev_id(this);
+        myApplication.addUser(email, thisId);
     }
 
 }

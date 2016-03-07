@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.telephony.TelephonyManager;
-import android.widget.EditText;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -30,9 +29,6 @@ import java.util.UUID;
  */
 public class MyApplication extends Application {
     private BeaconManager beaconManager;
-//    IMEI imei = new IMEI();
-//    public String DEVICE_ID = imei.get_dev_id(this);
-
 
     @Override
     public void onCreate() {
@@ -164,12 +160,11 @@ public class MyApplication extends Application {
         }
     }
 
-    public void addUser(String email) {
+    public void addUser(String email, String deviceId) {
         JSONObject jsonObject = new JSONObject();
-        IMEI imei = new IMEI();
         try {
             jsonObject.put("email", email);
-            jsonObject.put("device_id", "357746061445646");
+            jsonObject.put("device_id", deviceId);
             executeAsyncTask(new BeaconClient(), "http://abgundry.pythonanywhere.com/addUser?newUser=" + jsonObject.toString());
 
         } catch (JSONException e) {
