@@ -40,16 +40,16 @@ public class MyApplication extends Application {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
                 showNotification(
-                        "You entered the range of the sick person,",
-                        "What are you doing, get out of there.");
+                        "You entered range of a new beacon,",
+                        region.getMajor().toString());
                 updateStatusDB("enter", region.getProximityUUID().toString(), region.getMajor().toString(), region.getMinor().toString());
             }
             @Override
             public void onExitedRegion(Region region) {
                 // could add an "exit" notification too if you want (-:
                 showNotification(
-                        "You have exited the range of the sick person",
-                        "Nice job bro");
+                        "You exited the range of a beacon",
+                        region.getMajor().toString());
                 updateStatusDB("exit", region.getProximityUUID().toString(), region.getMajor().toString(), region.getMinor().toString());
             }
         });
@@ -57,14 +57,26 @@ public class MyApplication extends Application {
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
             public void onServiceReady() {
+                // Beacon 1
                 beaconManager.startMonitoring(new Region(
                         "monitored region",
                         UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
                         38813, 15738));
+                // Beacon 2
                 beaconManager.startMonitoring(new Region(
                         "monitored region",
                         UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
                         62225, 40962));
+                // Beacon 3
+                beaconManager.startMonitoring(new Region(
+                        "monitored region",
+                        UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
+                        30194, 9178));
+                // Beacon 4
+                beaconManager.startMonitoring(new Region(
+                        "monitored region",
+                        UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
+                        7122, 62286));
             }
         });
     }
